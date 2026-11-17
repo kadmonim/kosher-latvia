@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kosher Latvia</title>
+<link rel="icon" href="favicon.ico?v=85" sizes="any">
+<link rel="icon" href="img/favicon.svg?v=85" type="image/svg+xml">
+<link rel="icon" href="img/favicon-32.png?v=85" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" sizes="180x180" href="img/icon-180.png?v=85">
+<link rel="manifest" href="site.webmanifest?v=87">
+<meta name="apple-mobile-web-app-title" content="Kosher Latvia">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="Kosher Latvia">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="admin.css?v=94">
+</head>
+<body>
+<header class="topbar"><div class="wrap topbar-in">
+  <a class="logo" href="./" aria-label="כשר לטביה · Kosher Latvia"><img class="adm-lk" src="img/brand/logo-he.svg?v=80" alt="כשר לטביה" width="147" height="34"></a>
+  <span class="adm-tag">ניהול / Admin</span>
+</div></header>
+<main class="wrap adm">
+  <section id="login" class="panel">
+    <div class="lg-brand" dir="ltr">
+      <img class="lg-site" src="img/brand/logo-full-he.svg?v=80" alt="כשר לטביה" width="480" height="160">
+      <span class="lg-sep" aria-hidden="true"></span>
+      <img class="lg-chabad" src="img/chabad-riga-logo.png?v=56" alt="חב&quot;ד לטביה · Chabad Lubavitch Latvia" width="150" height="135">
+    </div>
+    <figure class="lg-quote" dir="rtl" lang="yi">
+      <blockquote><p>"עס איז מבואר אין ספרים (אויך פון חכמי הטבע), אז די נאטוראייגנשאפטן און נויגונגען פון מענטשן - ווערן אין א גרויסער מאס באווירקט פון דעם סוג מאכלים און משקאות וואס ער עסט און טרינקט. ווארום די שפייז ווערט דאך פארוואנדלט אין <span class="lq-in">"דם ובשר כבשרו"</span> - איז אזוי ווי דער אפקלייב פון שפייז איז נוגע צום קערפערלעכן געזונט, אין גשמיות, אזוי ווירקט עס אויך אויף די תכונות (חאראקטער) פון זיין נפש."</p></blockquote>
+      <figcaption>ליקוטי שיחות חלק י"ג עמוד 260</figcaption>
+    </figure>
+    <h1>כניסה לניהול</h1>
+    <form id="login-form">
+      <label>סיסמה / Password <input id="pw" type="password" autocomplete="current-password" required></label>
+      <button class="btn" type="submit">כניסה</button>
+      <p id="login-msg" class="msg" role="status"></p>
+    </form>
+  </section>
+
+  <section id="app" hidden>
+    <div class="adm-bar">
+      <button class="btn" id="save" type="button">💾 שמור ופרסם</button>
+      <span id="status" class="msg" role="status"></span>
+      <span class="spacer"></span>
+      <button class="btn2" id="new" type="button">＋ מוצר חדש</button>
+      <button class="btn2" id="tab-archive" type="button">📦 ארכיון</button>
+      <button class="btn2" id="tab-stats" type="button">📊 סטטיסטיקה / Stats</button>
+      <button class="btn2" id="tab-settings" type="button">⚙️ הגדרות</button>
+      <button class="btn2 xlsx" id="xlsx" type="button" title="Download all data to Excel">⬇️ הורד הכל לאקסל</button>
+      <button class="btn2 logout" id="logout" type="button" title="Log out">🚪 יציאה</button>
+    </div>
+    <section class="panel" id="archive" hidden>
+      <h2>📦 ארכיון (מוצרים שהוסרו)</h2>
+      <p class="small">מוצרים ששמורים בצד. הם לא מופיעים ברשימה הראשית (לא בחיפוש, לא בקטגוריות ולא בספירה). מוצר שמסומן “מוצג בעמוד 'היו בעבר'” מופיע רק בעמוד “מוצרים שהיו בעבר” (קישור קטן בתחתית האתר); בלי הסימון – רק כאן בניהול. “↩️ החזר לאתר” מחזיר מוצר לרשימה, ואז צריך להוסיף לו שם בעברית. השינויים נכנסים לתוקף אחרי “💾 שמור ופרסם”.</p>
+      <input id="arch-filter" type="search" placeholder="חיפוש בארכיון…">
+      <p class="small" id="arch-count">טוען…</p>
+      <ul id="alist"></ul>
+    </section>
+    <section class="panel" id="stats" hidden>
+      <h2>📊 סטטיסטיקה / Stats</h2>
+      <p class="small">ספירה אנונימית של השימוש באתר: כניסות לעמודים, מה מחפשים ועל איזה מוצר לוחצים. לא נשמר שום מידע אישי (בלי כתובת IP, בלי מזהה משתמש ובלי עוגיות). המבקרים לא רואים כלום מזה.</p>
+      <div class="st-acts"><button class="btn2" id="stats-reload" type="button">🔄 רענן</button> <button class="btn2" id="stats-recompute" type="button">⭐ עדכן פופולריות עכשיו</button> <button class="btn2 danger" id="stats-reset" type="button">🗑️ אפס נתונים</button></div>
+      <div id="stats-body"></div>
+    </section>
+    <div class="adm-cols" id="cols">
+      <aside class="adm-list">
+        <input id="filter" type="search" placeholder="חיפוש מוצר…">
+        <label class="small"><input type="checkbox" id="f-nophoto"> רק בלי תמונה</label>
+        <p class="small" id="list-count"></p>
+        <ul id="plist"></ul>
+      </aside>
+      <section class="adm-edit panel" id="editor">
+        <p class="muted">בחר מוצר מהרשימה כדי לערוך, או לחץ “מוצר חדש”.</p>
+      </section>
+    </div>
+    <section class="panel" id="settings" hidden>
+      <h2>הגדרות</h2>
+      <h3>החלפת סיסמה</h3>
+      <form id="pw-form"><label>סיסמה נוכחית <input id="pw-cur" type="password" autocomplete="current-password" required></label> <label>סיסמה חדשה (8 תווים לפחות, מומלץ 14+) <input id="pw-new" type="password" minlength="8" autocomplete="new-password" required></label> <button class="btn2" type="submit">החלף</button></form>
+      <p class="small">אחרי החלפה – כל שאר המכשירים שמחוברים לניהול מנותקים.</p>
+      <h3>גיבויים</h3>
+      <p class="small">בכל שמירה נשמר גיבוי של המצב הקודם .</p>
+      <button class="btn2" id="load-backups" type="button">הצג גיבויים</button>
+      <ul id="backups"></ul>
+      <h3>קובץ נתונים</h3>
+      <button class="btn2" id="xlsx2" type="button">⬇️ הורד הכל לאקסל (Excel)</button> <button class="btn2" id="export" type="button">⬇️ הורד את כל הנתונים (JSON)</button>
+      <label class="btn2 file">⬆️ טען קובץ JSON <input type="file" id="import" accept="application/json" hidden></label>
+      <h3>שורת "עודכן" בתחתית האתר</h3>
+      <p class="small">מתעדכן לבד לחודש והשנה הנוכחיים בכל “שמור ופרסם”. אפשר לשנות כאן ידנית, והשינוי יישמר בשמירה הבאה.</p>
+      <div id="um-fields"><label>עברית <input id="um-he" type="text"></label> <label>English <input id="um-en" type="text" dir="ltr"></label> <label>Русский <input id="um-ru" type="text" dir="ltr"></label> <button class="btn2" id="apply-um" type="button">עדכן</button></div>
+      <h3>📞 מספר ליצירת קשר (בחלק "אודות", רק בעמוד הראשי)</h3>
+      <p class="small">בעברית: וואטסאפ, המספר שלך. באנגלית וברוסית: הוואטסאפ של חב"ד ריגה. המספר מוצג בצורה רגילה, לא מודגשת.</p>
+      <div id="ct-fields"><label>עברית (וואטסאפ) <input id="ct-he" type="text" dir="ltr"></label> <label>English / Русский (וואטסאפ) <input id="ct-enru" type="text" dir="ltr"></label> <button class="btn2" id="apply-ct" type="button">עדכן</button></div>
+      <h3>🔗 קישורים לחנויות</h3>
+      <p class="small">הקישור של כל חנות (מהרשימה באנגלית/רוסית של חב"ד). מופיע ברשימת החנויות ובחלון המוצר, ונפתח בלשונית חדשה. שדה ריק = בלי קישור. השינויים נכנסים לתוקף אחרי “💾 שמור ופרסם”.</p>
+      <div id="st-links"></div>
+      <h3>טקסטים של האתר</h3>
+      <p class="small">הבאנר העליון (banner: כותרת, טקסט, כפתור והודעה לוואטסאפ בכל שפה; "enabled": false מסתיר אותו), הסברי הכשרות (לכל שפה) ופרטי הקשר. ערוך בזהירות, בפורמט JSON.</p>
+      <textarea id="texts" rows="14" dir="ltr"></textarea>
+      <button class="btn2" id="apply-texts" type="button">עדכן טקסטים</button>
+    </section>
+  </section>
+</main>
+<script src="admin-xlsx.js?v=114"></script>
+<script src="admin.js?v=122"></script>
+</body>
+</html>
