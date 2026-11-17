@@ -110,7 +110,7 @@
   }
   /* Akiva 2026-11-08 21:15/21:18 (v76: replaced by the store-count order below; Rimi and Maxima still lead by count) */
   /* v76 (Akiva 2026-11-10 10:55): a product's stores (card logos and popup) are ordered by how many products of the main list (in stock) each store sells, most first; ties A-Z. Counted from the loaded data in fixIcons(), so it follows every data change. */
-  var STORE_N = {};
+  var STORE_N = STORE_N || {}; /* static hosting: keep the ranking already counted from the bundled data (the first fixIcons() call runs above this line) */
   function storeRank(d) { var n = {}; ((d && d.products) || []).forEach(function (p) { if (!p || p.outOfStock || p.storePage) return; (p.stores || []).forEach(function (s) { n[s] = (n[s] || 0) + 1; }); }); STORE_N = n; }
   function rmFirst(list) { list = (list || []).slice(); if (list.length < 2) return list; return list.sort(function (a, b) { var d = (STORE_N[b] || 0) - (STORE_N[a] || 0); return d || String(a).localeCompare(String(b), "en", { sensitivity: "base" }); }); }
   function storeRow(p, max) {
